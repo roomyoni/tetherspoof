@@ -1,9 +1,3 @@
-for /f "delims= " %%a in ('"wmic path win32_useraccount where name='%UserName%' get sid"') do (
-   if not "%%a"=="SID" (          
-      set myvar=%%a
-      goto :loop_end
-   )   
-)
-
-:loop_end
-echo %myvar% > sid.txt
+whoami /user > temp.txt
+for /f "tokens=2 delims= " %%a in (temp.txt) do set SID=%%a
+echo %SID% > C:\Users\%username%\AppData\Local\Tether\Bin\sid.txt
